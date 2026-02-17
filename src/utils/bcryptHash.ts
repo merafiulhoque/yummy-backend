@@ -8,3 +8,12 @@ export const bcryptHash = async (password: string) => {
         throw new Error("hashing gone wrong")
     }
 }
+
+export async function bcryptCompare(password: string, dbPass: string) {
+    try {
+        const isPassOk = await bcrypt.compare(password, dbPass)
+        return isPassOk
+    } catch (error) {
+        throw new Error("password matching gone wrong")
+    }
+}

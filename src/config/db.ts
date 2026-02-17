@@ -6,9 +6,9 @@ const pool = new Pool({
     database: DB_NAME
 })
 
-pool.on("connect", () => {
-    console.log("DB connected successfully...");
-})
+// pool.on("connect", () => {
+//     console.log("DB connected successfully...");
+// })
 
 pool.on("error", (err) => {
     console.log("Error connecting DB...",err)
