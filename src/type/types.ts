@@ -7,4 +7,8 @@ export interface ApiResponse<T = unknown>{
 }
 
 
-
+export interface JWT_SIGN_INPUT {
+    email: string,
+    name: string,
+    id: string
+}
