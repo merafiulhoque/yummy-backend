@@ -10,3 +10,9 @@ export const loginFormSchema = z.object({
     email: z.string().email("Email is invalid"),
     password: z.string().min(6, "Password must be at least 6 character")
 })
+
+export const menuAddSchema = z.object({
+    item_name: z.string(),
+    item_description: z.string().optional(),
+    price: z.number()
+})

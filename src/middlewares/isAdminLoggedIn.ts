@@ -5,15 +5,23 @@ import { ApiResponse } from "../type/types.js";
 
 export async function isAdminLoggedIn(req: Request, res: Response, next: NextFunction){
     try {
-        const token = req.cookies.token
+        const token = req.cookies.authToken
+        if(!token){
+            const response: ApiResponse = {
+                success: false,
+                message: "No auth token found"
+            }
+            return res.status(401).json(response)
+        }
         const decodedData = jwtVerify(token)
+
         if(!decodedData){
             const response: ApiResponse = {
                 success: false,
                 message: "Invalid Token, Please Login again..."
             }
             res.clearCookie("authToken");
-            return res.status(400).json(response)
+            return res.status(401).json(response)
         }
 
         const query = "SELECT name, email from admin WHERE email = $1"
@@ -24,13 +32,17 @@ export async function isAdminLoggedIn(req: Request, res: Response, next: NextFun
                 message: "Invalid Token, Please Login again..."
             }
             res.clearCookie("authToken");
-            return res.status(400).json(response)
+            return res.status(403).json(response)
         }
-
-        next();
+        req.admin = queryRes.rows[0];
+        return next();
         
         
     } catch (error) {
-        return false
+        const response: ApiResponse = {
+            success: false,
+            message: "Token not valid as Admin"
+        }
+        return res.status(500).json(response)
     }
 }

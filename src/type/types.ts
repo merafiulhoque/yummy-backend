@@ -19,3 +19,9 @@ export interface JWT_PAYLOAD extends JwtPayload{
     name: string,
     id: string
 }
+
+export interface Menu {
+    item_name: string
+    item_description?: string
+    price: number
+}
