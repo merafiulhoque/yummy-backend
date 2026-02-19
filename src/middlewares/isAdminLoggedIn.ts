@@ -9,7 +9,7 @@ export async function isAdminLoggedIn(req: Request, res: Response, next: NextFun
         if(!token){
             const response: ApiResponse = {
                 success: false,
-                message: "No auth token found"
+                message: "Not authorized. Please login..."
             }
             return res.status(401).json(response)
         }

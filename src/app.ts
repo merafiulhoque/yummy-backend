@@ -1,8 +1,8 @@
 import express, {type Express, Request, Response} from "express";
 import cors from "cors";
-import loginRouter from "./routes/auth/loginRoute.js"
 import menuRouter from "./routes/menu/menuRouter.js";
 import cookieParser from "cookie-parser";
+import authRouter from "./routes/auth/authRouter.js";
 const app: Express = express();
 
 
@@ -12,7 +12,8 @@ app.use(cors());
 app.use(cookieParser());
 
 // to create admin paste the api endpoint from extra functions
-app.use("/login", loginRouter)
+app.use("/auth", authRouter)
+app.use("/auth", authRouter)
 
 //admins protected routes
 app.use("/menus", menuRouter)
