@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { ApiResponse, Menu } from "../type/types.js"
-import { menuAddSchema } from "../validators/schemas.js"
-import pool from "../config/db.js"
+import { ApiResponse, Menu } from "../../type/types.js"
+import { menuAddSchema } from "../../validators/schemas.js"
+import pool from "../../config/db.js"
 
 
 export async function addMenus(req: Request, res: Response){

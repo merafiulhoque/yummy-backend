@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from "express";
-import pool from "../config/db.js";
-import { menuAddSchema } from "../validators/schemas.js";
-import { ApiResponse } from "../type/types.js";
-
+import pool from "../../config/db.js";
+import { menuAddSchema } from "../../validators/schemas.js";
+import { ApiResponse } from "../../type/types.js";
+import _ from "lodash";
 
 export async function editMenu(req: Request, res: Response, next: NextFunction){
     try {
-        const {id} = req.params
-        const query = "SELECT item_name FROM menu WHERE id = $1"
-        let queryRes = await pool.query(query, [id])
+        const { id } = req.params
+        const query = "SELECT item_name, item_description, price FROM menu WHERE id = $1"
+        let queryRes1 = await pool.query(query, [id])
         
-        if( queryRes.rows.length > 0 ){
+        if( queryRes1.rows.length > 0 ){
             const result = menuAddSchema.safeParse(req.body)
             if(!result.success){
                 return res.status(401).json({
@@ -19,12 +19,30 @@ export async function editMenu(req: Request, res: Response, next: NextFunction){
                 })
             }
             const {item_name, item_description, price} = result.data
+
+            console.log("in db:" ,queryRes1.rows[0], "In form: ", result.data)
+            
+            // if(_.isEqual(result.data, queryRes1.rows[0])){
+            //     return res.status(403).json({
+            //         success: false,
+            //         message: "No changes found"
+            //     })
+            // }
+
+            if(JSON.stringify(queryRes1) === JSON.stringify(result.data)){
+                return res.status(403).json({
+                    success: false,
+                    message: "No changes found"
+                })
+            }
+
+
             const query = "UPDATE menu SET item_name=$1, item_description=$2, price=$3 WHERE id=$4 RETURNING *"
-            const queryRes = await pool.query(query, [item_name, item_description ?? null, price, id])
+            const queryRes2 = await pool.query(query, [item_name, item_description ?? null, price, id])
             const response: ApiResponse = {
                 success: true,
                 message: "Menu edited successfuly",
-                data: queryRes.rows[0]
+                data: queryRes2.rows[0]
             }
             return res.status(200).json(response)
         }

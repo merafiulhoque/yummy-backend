@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import pool from "../config/db.js";
-import { ApiResponse } from "../type/types.js";
+import pool from "../../config/db.js";
+import { ApiResponse } from "../../type/types.js";
 
 export async function getMenus(req: Request, res: Response){
     try {
