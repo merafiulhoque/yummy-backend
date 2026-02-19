@@ -24,17 +24,17 @@ export function jwtVerify(token: string): JWT_PAYLOAD | null{
     }
 }
 
-export function isTokenValid(token: string): boolean{
-    try {
-        const decode = jwt.verify(token, JWT_SECRET_KEY)
+// export function isTokenValid(token: string): boolean{
+//     try {
+//         const decode = jwt.verify(token, JWT_SECRET_KEY)
 
-        if(typeof decode === "string"){
-            return false
-        }
+//         if(typeof decode === "string"){
+//             return false
+//         }
 
-        return true
-    } catch (error) {
-        return false
-    }
-}
+//         return true
+//     } catch (error) {
+//         return false
+//     }
+// }
 
