@@ -20,21 +20,20 @@ export async function editMenu(req: Request, res: Response, next: NextFunction){
             }
             const {item_name, item_description, price} = result.data
 
-            console.log("in db:" ,queryRes1.rows[0], "In form: ", result.data)
             
-            // if(_.isEqual(result.data, queryRes1.rows[0])){
-            //     return res.status(403).json({
-            //         success: false,
-            //         message: "No changes found"
-            //     })
-            // }
-
-            if(JSON.stringify(queryRes1) === JSON.stringify(result.data)){
+            if(_.isEqual(result.data, {...queryRes1.rows[0], price: parseInt(queryRes1.rows[0].price)})){
                 return res.status(403).json({
                     success: false,
                     message: "No changes found"
                 })
             }
+
+            // if(JSON.stringify(queryRes1) === JSON.stringify(result.data)){
+            //     return res.status(403).json({
+            //         success: false,
+            //         message: "No changes found"
+            //     })
+            // }
 
 
             const query = "UPDATE menu SET item_name=$1, item_description=$2, price=$3 WHERE id=$4 RETURNING *"
