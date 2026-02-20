@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { login } from "../../controller/login.js";
-import { logout } from "../../controller/logout.js";
+import { login } from "../../controller/auth/login.js";
+import { logout } from "../../controller/auth/logout.js";
 const authRouter = Router()
 
 authRouter.post("/login", login)

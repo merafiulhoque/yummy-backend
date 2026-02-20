@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { loginFormSchema } from "../validators/schemas.js";
-import pool from "../config/db.js";
-import { bcryptCompare } from "../utils/bcryptHash.js";
-import { ApiResponse } from "../type/types.js";
-import { jwtSign } from "../utils/jwtUtils.js";
+import { loginFormSchema } from "../../validators/schemas.js";
+import pool from "../../config/db.js";
+import { bcryptCompare } from "../../utils/bcryptHash.js";
+import { ApiResponse } from "../../type/types.js";
+import { jwtSign } from "../../utils/jwtUtils.js";
+
 
 export async function login(req: Request, res: Response){
     try {

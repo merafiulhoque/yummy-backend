@@ -19,6 +19,6 @@ menuRouter.post("/add-menus", isAdminLoggedIn,addMenus)
 //edit menu
 menuRouter.put(`/edit-menu/:id`, isAdminLoggedIn, editMenu)
 //deletemenu
-menuRouter.delete("delete-menu/:id", isAdminLoggedIn, deleteMenu)
+menuRouter.delete("/delete-menu/:id", isAdminLoggedIn, deleteMenu)
 
 export default menuRouter;

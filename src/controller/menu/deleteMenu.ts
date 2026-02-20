@@ -6,6 +6,7 @@ import { ApiResponse } from "../../type/types.js";
 export async function deleteMenu(req: Request, res: Response) {
     try {
         const {id} = req.params
+        console.log(id)
         const query = "DELETE FROM menu WHERE id = $1 RETURNING *"
         const queryRes = await pool.query(query,[id])
 

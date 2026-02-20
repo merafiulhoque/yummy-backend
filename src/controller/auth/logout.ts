@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ApiResponse } from "../type/types.js";
+import { ApiResponse } from "../../type/types.js";
 
 export function logout(req: Request, res: Response){
     try {
